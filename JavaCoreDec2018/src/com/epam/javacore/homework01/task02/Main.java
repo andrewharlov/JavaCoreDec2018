@@ -31,7 +31,7 @@ public class Main {
     }
 
     private void function(int n, double epsilon){
-        double An =1 / (Math.pow((n + 1), 2));
+        double An = 1 / (Math.pow((n + 1), 2));
 
         while (true){
             if (An <= epsilon){
