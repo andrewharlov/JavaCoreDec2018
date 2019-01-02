@@ -1,0 +1,8 @@
+﻿
+1. Open the cmd/terminal tool
+2. Navigate to this folder ...\src\com\epam\javacore\homework01\task01
+3. Run the following command:
+    javac logic/Logic.java main/Main.java
+4. Navigate to the folder ...\src
+5. Run the following command:
+    java com.epam.javacore.homework01.task01.main.Main
