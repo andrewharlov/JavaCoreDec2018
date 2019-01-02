@@ -1,0 +1,47 @@
+package com.epam.javacore.homework01.task02;
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args){
+        double epsilon = 0.0;
+        int n = 1;
+
+        while (true){
+            System.out.println("Enter an epsilon value: ");
+            Scanner scanner = new Scanner(System.in);
+            String epsilonString = scanner.nextLine();
+
+            try {
+                epsilon = Double.parseDouble(epsilonString);
+            } catch (NumberFormatException ex){
+                System.out.println("Please use only numbers.");
+            }
+
+            if (epsilon == 0.0){
+                System.out.println("Epsilon can not be 0.");
+            } else {
+                break;
+            }
+        }
+
+        Main main = new Main();
+        main.function(n, epsilon);
+    }
+
+    private void function(int n, double epsilon){
+        double An =1 / (Math.pow((n + 1), 2));
+
+        while (true){
+            if (An <= epsilon){
+                System.out.println("Answer : a[" + n + "] = " + new BigDecimal(An).toPlainString());
+                break;
+            } else {
+                System.out.println("Log : a[" + n + "] = " + new BigDecimal(An).toPlainString());
+                n++;
+                An = 1 / (Math.pow((n + 1), 2));
+            }
+        }
+    }
+}
