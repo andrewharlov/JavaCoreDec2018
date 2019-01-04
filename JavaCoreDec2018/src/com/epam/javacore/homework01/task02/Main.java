@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+        BigDecimal minValue;
         double epsilon = 0.0;
         int n = 1;
 
@@ -27,15 +28,17 @@ public class Main {
         }
 
         Main main = new Main();
-        main.function(n, epsilon);
+        minValue = main.function(n, epsilon);
+        System.out.println("Minimum value: " + minValue.toPlainString());
     }
 
-    private void function(int n, double epsilon){
+    private BigDecimal function(int n, double epsilon){
         double An = 1 / (Math.pow((n + 1), 2));
+        BigDecimal min;
 
         while (true){
             if (An <= epsilon){
-                System.out.println("Answer : a[" + n + "] = " + new BigDecimal(An).toPlainString());
+                min = new BigDecimal(An);
                 break;
             } else {
                 System.out.println("Log : a[" + n + "] = " + new BigDecimal(An).toPlainString());
@@ -43,5 +46,7 @@ public class Main {
                 An = 1 / (Math.pow((n + 1), 2));
             }
         }
+
+        return min;
     }
 }
