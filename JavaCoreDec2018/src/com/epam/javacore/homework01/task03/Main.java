@@ -31,13 +31,14 @@ public class Main {
         }
 
         Main main = new Main();
-        main.function(start, end, step);
-    }
 
-    private void function(double start, double end, double step){
         for (double i = start; i <= end; i += step){
-            double result = (Math.tan(2 * i)) - 3;
+            double result = main.function(i);
             System.out.println("x = " + i + " => result = " + result);
         }
+    }
+
+    private double function(double x){
+        return (Math.tan(2 * x)) - 3;
     }
 }
