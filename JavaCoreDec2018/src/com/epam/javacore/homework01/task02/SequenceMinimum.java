@@ -32,7 +32,7 @@ public class SequenceMinimum {
         System.out.println("Minimum value: " + minValue.toPlainString());
     }
 
-    private BigDecimal function(int n, double epsilon){
+    public BigDecimal function(int n, double epsilon){
         double An = 1 / (Math.pow((n + 1), 2));
         BigDecimal min;
 
