@@ -3,7 +3,7 @@ package com.epam.javacore.homework01.task02;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class Main {
+public class SequenceMinimum {
     public static void main(String[] args){
         BigDecimal minValue;
         double epsilon = 0.0;
@@ -27,7 +27,7 @@ public class Main {
             }
         }
 
-        Main main = new Main();
+        SequenceMinimum main = new SequenceMinimum();
         minValue = main.function(n, epsilon);
         System.out.println("Minimum value: " + minValue.toPlainString());
     }
