@@ -58,7 +58,7 @@ public class SequenceMaximum {
 
     }
 
-    private double max(ArrayList<Double> sequence, int n){
+    public double max(ArrayList<Double> sequence, int n){
         double max = 0;
 
         for (int i = 0; i < n; i++){
