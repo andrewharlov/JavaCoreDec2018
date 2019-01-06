@@ -2,7 +2,7 @@ package com.epam.javacore.homework01.task03;
 
 import java.util.Scanner;
 
-public class Main {
+public class TangentFunction {
     public static void main(String[] args){
         double start, end, step;
 
@@ -30,10 +30,10 @@ public class Main {
             }
         }
 
-        Main main = new Main();
+        TangentFunction tangentFunction = new TangentFunction();
 
         for (double i = start; i <= end; i += step){
-            double result = main.function(i);
+            double result = tangentFunction.function(i);
             System.out.println("x = " + i + " => result = " + result);
         }
     }
