@@ -27,8 +27,8 @@ public class SequenceMinimum {
             }
         }
 
-        SequenceMinimum main = new SequenceMinimum();
-        minValue = main.function(n, epsilon);
+        SequenceMinimum sequenceMinimum = new SequenceMinimum();
+        minValue = sequenceMinimum.function(n, epsilon);
         System.out.println("Minimum value: " + minValue.toPlainString());
     }
 
