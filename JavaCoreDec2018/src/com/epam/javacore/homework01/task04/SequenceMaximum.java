@@ -3,10 +3,13 @@ package com.epam.javacore.homework01.task04;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SequenceMaximum {
+    public List<Double> subSequence = new ArrayList<>();
+
     public static void main(String[] args){
         ArrayList<Double> sequence = new ArrayList<Double>();
         int n = 0;
@@ -42,32 +45,38 @@ public class SequenceMaximum {
             sequence.add(randomDouble);
         }
 
-        System.out.print("Sequence: (  ");
-        for (double value : sequence){
-            System.out.print(value + "  ");
-        }
-        System.out.println(")");
-
         SequenceMaximum sequenceMaximum = new SequenceMaximum();
-        System.out.println("max = " + sequenceMaximum.max(sequence, n));
+        double max = sequenceMaximum.max(sequence, n);
+
+        System.out.print("Sequence:  ");
+        sequenceMaximum.printSequence(sequence);
+
+        System.out.print("\nSub-sequence:  ");
+        sequenceMaximum.printSequence(sequenceMaximum.subSequence);
+
+        System.out.println("\nmax = " + max);
+
     }
 
     private double max(ArrayList<Double> sequence, int n){
         double max = 0;
-        System.out.print("Sub-sequence: (  ");
 
         for (int i = 0; i < n; i++){
             double value = sequence.get(i) + sequence.get(2 * n - 1 - i);
             value = new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
-
-            System.out.print(value + "  ");
+            this.subSequence.add(value);
 
             if (value > max){
                 max = value;
             }
         }
 
-        System.out.println(")");
         return max;
+    }
+
+    public void printSequence(List<Double> sequence){
+        for (double value : sequence){
+            System.out.print(value + "  ");
+        }
     }
 }
