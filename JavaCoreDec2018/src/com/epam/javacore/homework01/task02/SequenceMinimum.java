@@ -1,13 +1,16 @@
 package com.epam.javacore.homework01.task02;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SequenceMinimum {
+    public List<BigDecimal> sequence = new ArrayList<>();
+
     public static void main(String[] args){
         BigDecimal minValue;
         double epsilon = 0.0;
-        int n = 1;
 
         while (true){
             System.out.println("Enter an epsilon value: ");
@@ -28,25 +31,35 @@ public class SequenceMinimum {
         }
 
         SequenceMinimum sequenceMinimum = new SequenceMinimum();
-        minValue = sequenceMinimum.function(n, epsilon);
+        minValue = sequenceMinimum.function(epsilon);
         System.out.println("Minimum value: " + minValue.toPlainString());
+        sequenceMinimum.printSequence();
     }
 
-    public BigDecimal function(int n, double epsilon){
+    public BigDecimal function(double epsilon){
+        int n = 1;
         double An = 1 / (Math.pow((n + 1), 2));
         BigDecimal min;
 
         while (true){
             if (An <= epsilon){
                 min = new BigDecimal(An);
+                sequence.add(min);
                 break;
             } else {
-                System.out.println("Log : a[" + n + "] = " + new BigDecimal(An).toPlainString());
+                sequence.add(new BigDecimal(An));
                 n++;
                 An = 1 / (Math.pow((n + 1), 2));
             }
         }
 
         return min;
+    }
+
+    public void printSequence(){
+        System.out.println("Sequence:");
+        for (int i = 0; i < this.sequence.size(); i++){
+            System.out.println("Log : a[" + (i + 1) + "] = " + this.sequence.get(i).toPlainString());
+        }
     }
 }
