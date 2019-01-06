@@ -2,7 +2,7 @@ package com.epam.javacore.homework01.task05;
 
 import java.util.Scanner;
 
-public class Main {
+public class ArrayX {
     public static void main(String[] args){
         int arraySize = 0;
 
@@ -26,8 +26,8 @@ public class Main {
             }
         }
 
-        Main main = new Main();
-        int[][] array = main.createArray(arraySize);
+        ArrayX arrayX = new ArrayX();
+        int[][] array = arrayX.createArray(arraySize);
 
         for (int i = 0; i < arraySize; i++){
             for (int j = 0; j < arraySize; j++){
