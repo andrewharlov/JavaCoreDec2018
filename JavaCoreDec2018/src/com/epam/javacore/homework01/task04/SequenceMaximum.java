@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Main {
+public class SequenceMaximum {
     public static void main(String[] args){
         ArrayList<Double> sequence = new ArrayList<Double>();
         int n = 0;
@@ -48,8 +48,8 @@ public class Main {
         }
         System.out.println(")");
 
-        Main main = new Main();
-        System.out.println("max = " + main.max(sequence, n));
+        SequenceMaximum sequenceMaximum = new SequenceMaximum();
+        System.out.println("max = " + sequenceMaximum.max(sequence, n));
     }
 
     private double max(ArrayList<Double> sequence, int n){
