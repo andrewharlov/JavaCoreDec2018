@@ -38,7 +38,7 @@ public class TangentFunction {
         }
     }
 
-    private double function(double x){
+    public double function(double x){
         return (Math.tan(2 * x)) - 3;
     }
 }
