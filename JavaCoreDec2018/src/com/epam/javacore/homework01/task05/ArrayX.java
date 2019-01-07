@@ -37,7 +37,7 @@ public class ArrayX {
         }
     }
 
-    private int[][] createArray(int arraySize){
+    public int[][] createArray(int arraySize){
         int[][] array = new int[arraySize][arraySize];
 
         for (int i = 0; i < arraySize; i++){
