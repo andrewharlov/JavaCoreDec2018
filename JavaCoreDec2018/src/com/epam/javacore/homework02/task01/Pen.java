@@ -35,6 +35,6 @@ public class Pen {
 
     @Override
     public String toString() {
-        return "Pen has " + this.color + " and " + this.width + " width.";
+        return "Pen has " + this.color + " color and the width equals to " + this.width;
     }
 }
