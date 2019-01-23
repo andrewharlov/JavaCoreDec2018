@@ -180,4 +180,8 @@ public class CrazyLogger {
 
         return searchResults;
     }
+
+    public StringBuilder getLog() {
+        return log;
+    }
 }
