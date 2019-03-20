@@ -44,14 +44,23 @@ public class CodeAnalyzer {
         int symbol;
         String content = "";
         File file = new File(filePath.toUri());
+        FileReader fileReader = null;
 
         try {
-            FileReader fileReader = new FileReader(file);
+            fileReader = new FileReader(file);
             while ((symbol = fileReader.read()) != -1) {
                 content = content + (char) symbol;
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return content;
@@ -59,12 +68,21 @@ public class CodeAnalyzer {
 
     public void writeFile(Path filePath, String content){
         File file = new File(filePath.toUri());
+        FileWriter fileWriter = null;
 
         try {
-            FileWriter fileWriter = new FileWriter(file);
+            fileWriter = new FileWriter(file);
             fileWriter.write(content);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
