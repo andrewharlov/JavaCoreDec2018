@@ -47,14 +47,23 @@ public class CodeAnalyzer {
         int symbol;
         String content = "";
         File file = new File(filePath.toUri());
+        FileInputStream inputStream = null;
 
         try {
-            FileInputStream inputStream = new FileInputStream(file);
+            inputStream = new FileInputStream(file);
             while ((symbol = inputStream.read()) != -1) {
                 content = content + (char) symbol;
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return content;
@@ -63,12 +72,21 @@ public class CodeAnalyzer {
     public void writeFile(Path filePath, String content){
         File file = new File(filePath.toUri());
         byte[] contentInBytes = content.getBytes();
+        FileOutputStream outputStream = null;
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream = new FileOutputStream(file);
             outputStream.write(contentInBytes);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
