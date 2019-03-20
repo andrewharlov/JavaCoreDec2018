@@ -1,6 +1,5 @@
 package com.epam.javacore.homework04.task02;
 
-import com.epam.javacore.homework04.task01.CodeAnalyzer;
 import org.junit.Test;
 
 import java.nio.file.Path;
@@ -43,7 +42,7 @@ public class CodeAnalyzerTest {
         Path filePath = Paths.get("src", "com", "epam", "javacore", "homework04", "task02", "source_code.txt");
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer();
         String actual = codeAnalyzer.readFile(filePath);
-        actual = actual.replaceAll("ï»¿", ""); //remove Byte Order Mark (BOM)
+        actual = actual.replace("\ufeff", "");//remove Byte Order Mark (BOM)
         assertEquals(expected, actual);
     }
 
