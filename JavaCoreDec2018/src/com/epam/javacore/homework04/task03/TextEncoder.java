@@ -9,15 +9,24 @@ public class TextEncoder {
         int symbol;
         StringBuilder content = new StringBuilder();
         File file = new File(filePath.toUri());
+        FileReader fileReader = null;
 
         try {
-            FileReader fileReader = new FileReader(file);
+            fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((symbol = bufferedReader.read()) != -1) {
                 content.append((char) symbol);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return content.toString();
@@ -33,17 +42,35 @@ public class TextEncoder {
             e.printStackTrace();
         }
 
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_16);
-        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+        OutputStreamWriter outputStreamWriter = null;
+        if (outputStream != null) {
+            outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_16);
+        }
+        BufferedWriter bufferedWriter = null;
+        if (outputStreamWriter != null) {
+            bufferedWriter = new BufferedWriter(outputStreamWriter);
+        }
 
         try {
-            bufferedWriter.write(content);
+            if (bufferedWriter != null) {
+                bufferedWriter.write(content);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                bufferedWriter.flush();
-                bufferedWriter.close();
+                if (bufferedWriter != null) {
+                    bufferedWriter.flush();
+                }
+                if (bufferedWriter != null) {
+                    bufferedWriter.close();
+                }
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+                if (outputStreamWriter != null) {
+                    outputStreamWriter.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
