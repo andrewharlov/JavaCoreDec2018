@@ -2,9 +2,12 @@ package com.epam.javacore.homework05.task01;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class FileManager {
@@ -16,10 +19,7 @@ public class FileManager {
     }
 
     public void findAllTextFiles(){
-        /*
-        * TODO
-        * textFiles.clear();*/
-
+        textFiles.clear();
         File root = new File(rootFolder.toUri());
 
         FilenameFilter textFilter = new FilenameFilter() {
@@ -42,43 +42,57 @@ public class FileManager {
                     Path path = Paths.get(entry.getAbsolutePath());
                     textFiles.add(new TextFile(path));
                 }
-
                 filteredFiles = true;
             }
         }
     }
 
     public void deleteTextFile(TextFile fileToDelete){
-        // find file in textFiles
-        // get file's path
-        // delete file by path
+        boolean result = false;
 
-        /*
-        * TODO
-        * Delete fileToDelete from the file system*/
+        try {
+            result = Files.deleteIfExists(fileToDelete.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        /*Iterator<TextFile> iterator = textFiles.iterator();
-        while (iterator.hasNext()){
-            TextFile textFile = iterator.next();
-            if (fileToDelete.equals(textFile)){
-                iterator.remove();
+        if (result){
+            Iterator<TextFile> iterator = textFiles.iterator();
+            while (iterator.hasNext()){
+                TextFile textFile = iterator.next();
+                if (fileToDelete.equals(textFile)){
+                    iterator.remove();
+                }
             }
-        }*/
+        }
     }
 
-    public TextFile createTextFile(Path folder){
-        // create a text file in folder
-        // return TextFile object
+    public TextFile createTextFile(Path folder, String fileName, String fileExtension){
+        boolean isFileCreated = false;
+        Path createdFilePath = null;
 
-        return null;
+        try {
+            File directory = new File(folder.toUri());
+            File file = new File(directory, fileName + fileExtension);
+            isFileCreated = file.createNewFile();
+            createdFilePath = file.toPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        TextFile createdFile = null;
+        if (isFileCreated && createdFilePath != null){
+            createdFile = new TextFile(createdFilePath);
+            return createdFile;
+        } else {
+            return createdFile;
+        }
     }
 
     public static void main(String[] args){
         Path rootFolder = Paths.get("src", "com", "epam", "javacore", "homework05", "task01", "testFolder");
-
-        Path fileToDelete = Paths.get("C:\\andy\\development\\JavaTraining\\JavaCoreDec2018\\JavaCoreDec2018" +
-                "\\src\\com\\epam\\javacore\\homework05\\task01\\testFolder\\folder\\folder1\\textFile3.txt");
-        TextFile textFile3 = new TextFile(fileToDelete);
+        Path fileToDelete = Paths.get("src", "com", "epam", "javacore", "homework05", "task01", "testFolder",
+                "folder", "folder1", "textFile4.txt");
 
         FileManager fileManager = new FileManager(rootFolder);
         fileManager.findAllTextFiles();
@@ -88,7 +102,11 @@ public class FileManager {
             System.out.println(textFile.getPath().toString());
         }
 
-        fileManager.deleteTextFile(textFile3);
+        //fileManager.deleteTextFile(textFile3);
+        TextFile createdFile = fileManager.createTextFile(rootFolder, "textFile33", ".txt");
+        if (createdFile != null){
+            fileManager.textFiles.add(createdFile);
+        }
 
         System.out.println("After the file was deleted:");
         for (TextFile textFile : fileManager.textFiles){
