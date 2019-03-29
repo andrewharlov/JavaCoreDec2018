@@ -34,15 +34,22 @@ public class FileManager {
     public void listFilesForFolder(File folder, FilenameFilter textFilter) {
         boolean filteredFiles = false;
 
-        for (File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry, textFilter);
-            } else if (!filteredFiles){
-                for (File entry : folder.listFiles(textFilter)) {
-                    Path path = Paths.get(entry.getAbsolutePath());
-                    textFiles.add(new TextFile(path));
+        File[] folderItems = folder.listFiles();
+
+        if (folderItems != null){
+            for (File fileEntry : folderItems) {
+                if (fileEntry.isDirectory()) {
+                    listFilesForFolder(fileEntry, textFilter);
+                } else if (!filteredFiles){
+                    File[] txtFiles = folder.listFiles(textFilter);
+                    if (txtFiles != null){
+                        for (File entry : txtFiles) {
+                            Path path = Paths.get(entry.getAbsolutePath());
+                            textFiles.add(new TextFile(path));
+                        }
+                    }
+                    filteredFiles = true;
                 }
-                filteredFiles = true;
             }
         }
     }
@@ -89,28 +96,7 @@ public class FileManager {
         }
     }
 
-    public static void main(String[] args){
-        Path rootFolder = Paths.get("src", "com", "epam", "javacore", "homework05", "task01", "testFolder");
-        Path fileToDelete = Paths.get("src", "com", "epam", "javacore", "homework05", "task01", "testFolder",
-                "folder", "folder1", "textFile4.txt");
-
-        FileManager fileManager = new FileManager(rootFolder);
-        fileManager.findAllTextFiles();
-
-        System.out.println("Before the file was deleted:");
-        for (TextFile textFile : fileManager.textFiles){
-            System.out.println(textFile.getPath().toString());
-        }
-
-        //fileManager.deleteTextFile(textFile3);
-        TextFile createdFile = fileManager.createTextFile(rootFolder, "textFile33", ".txt");
-        if (createdFile != null){
-            fileManager.textFiles.add(createdFile);
-        }
-
-        System.out.println("After the file was deleted:");
-        for (TextFile textFile : fileManager.textFiles){
-            System.out.println(textFile.getPath().toString());
-        }
+    public List<TextFile> getTextFiles() {
+        return textFiles;
     }
 }
